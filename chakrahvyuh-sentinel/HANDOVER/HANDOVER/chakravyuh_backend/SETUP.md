@@ -142,11 +142,66 @@ Once blocked, any further request from that IP (any route) should return:
 ```json
 {"detail": "Access blocked due to suspicious behavior."}
 ```
-with status code 403 — and it should NOT create a new request_logs row (the block
-middleware short-circuits before logging middleware runs).
+with status code 403 — response body:
+```json
+{"detail": "Forbidden: IP blocked by Sentinel"}
+```
+Dashboard read routes (`/stats`, `/alerts`, etc.) remain reachable even when the caller IP is blocked.
 
 ### 8g. Block expires
 ```sql
 UPDATE blocked_ips SET blocked_until = NOW() - INTERVAL '1 minute' WHERE ip = 'YOUR_TEST_IP';
 ```
 Next request from that IP should pass through (auto-expired by `is_ip_blocked()`).
+
+## 9. Dashboard API & Frontend
+
+### 9a. Dashboard read-only endpoints
+
+With the backend running on port 8000:
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/stats` | KPI summary (requests, sessions, alerts, blocked IPs) |
+| GET | `/statistics` | Chart/analytics data (7-day trends, status codes, top IPs) |
+| GET | `/alerts?limit=100` | Security alerts list |
+| GET | `/blocked-ips?active_only=true` | Blocked IP records |
+| GET | `/requests?limit=100` | Request log entries |
+| GET | `/sessions?limit=100` | Session records |
+
+Quick smoke test:
+
+```bash
+python test_dashboard_api.py
+```
+
+Or curl each endpoint:
+
+```bash
+curl http://127.0.0.1:8000/stats
+curl http://127.0.0.1:8000/alerts
+curl http://127.0.0.1:8000/blocked-ips
+curl http://127.0.0.1:8000/requests
+curl http://127.0.0.1:8000/sessions
+curl http://127.0.0.1:8000/statistics
+```
+
+### 9b. Open the admin dashboard
+
+The dashboard is static HTML under `sentinel_security_dashboard/stitch_sentinel_security_dashboard/`.
+
+1. Start the backend: `uvicorn app.main:app --reload` (default `http://127.0.0.1:8000`)
+2. Serve the dashboard folder with any static file server, e.g.:
+   ```bash
+   cd sentinel_security_dashboard/stitch_sentinel_security_dashboard
+   python -m http.server 5500
+   ```
+3. Open `http://127.0.0.1:5500/index.html` (redirects to Dashboard Overview)
+
+The frontend reads from `http://127.0.0.1:8000` by default. To change the API URL, run in the browser console:
+
+```javascript
+localStorage.setItem('SENTINEL_API_BASE', 'http://127.0.0.1:8000');
+```
+
+CORS is enabled for all origins so the dashboard can fetch from a different port.
