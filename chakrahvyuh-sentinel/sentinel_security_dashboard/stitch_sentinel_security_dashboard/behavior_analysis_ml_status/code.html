@@ -105,7 +105,7 @@
         .card-shadow { box-shadow: 0px 4px 12px rgba(15, 23, 42, 0.04); }
     </style>
 </head>
-<body class="bg-background text-on-background min-h-screen flex">
+<body class="bg-background text-on-background min-h-screen flex" data-page="analytics">
 <!-- SideNavBar -->
 <nav class="flex flex-col h-full w-[260px] fixed z-40 left-0 top-0 bg-primary-container border-r border-outline-variant">
 <div class="p-gutter pt-[24px]">
@@ -117,13 +117,13 @@
 </div>
 </div>
 <ul class="space-y-1">
-<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" href="#"><span class="material-symbols-outlined">dashboard</span> <span class="font-label-caps text-label-caps">Dashboard</span></a></li>
-<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" href="#"><span class="material-symbols-outlined">warning</span> <span class="font-label-caps text-label-caps">Security Alerts</span></a></li>
-<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" href="#"><span class="material-symbols-outlined">block</span> <span class="font-label-caps text-label-caps">Blocked IPs</span></a></li>
-<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" href="#"><span class="material-symbols-outlined">swap_horiz</span> <span class="font-label-caps text-label-caps">Requests</span></a></li>
-<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" href="#"><span class="material-symbols-outlined">history</span> <span class="font-label-caps text-label-caps">Sessions</span></a></li>
+<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" data-nav="dashboard" href="#"><span class="material-symbols-outlined">dashboard</span> <span class="font-label-caps text-label-caps">Dashboard</span></a></li>
+<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" data-nav="alerts" href="#"><span class="material-symbols-outlined">warning</span> <span class="font-label-caps text-label-caps">Security Alerts</span></a></li>
+<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" data-nav="blocked-ips" href="#"><span class="material-symbols-outlined">block</span> <span class="font-label-caps text-label-caps">Blocked IPs</span></a></li>
+<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" data-nav="requests" href="#"><span class="material-symbols-outlined">swap_horiz</span> <span class="font-label-caps text-label-caps">Requests</span></a></li>
+<li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" data-nav="sessions" href="#"><span class="material-symbols-outlined">history</span> <span class="font-label-caps text-label-caps">Sessions</span></a></li>
 <!-- Active State -->
-<li><a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 rounded-r transition-all" href="#"><span class="material-symbols-outlined">analytics</span> <span class="font-label-caps text-label-caps">Behavior Analysis</span></a></li>
+<li><a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 rounded-r transition-all" data-nav="analytics" href="#"><span class="material-symbols-outlined">analytics</span> <span class="font-label-caps text-label-caps">Behavior Analysis</span></a></li>
 <li><a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 rounded" href="#"><span class="material-symbols-outlined">settings</span> <span class="font-label-caps text-label-caps">Settings</span></a></li>
 </ul>
 </div>
@@ -230,207 +230,18 @@
 <th class="py-3 px-6 font-medium">Confidence</th>
 </tr>
 </thead>
-<tbody class="text-sm">
-<tr class="border-b border-surface-variant hover:bg-surface-bright transition-colors">
-<td class="py-3 px-6 data-font">session_a8f92</td>
-<td class="py-3 px-6">45,201</td>
-<td class="py-3 px-6 text-on-surface-variant data-font">[0.85, 0.12, ..., 0.94]</td>
-<td class="py-3 px-6"><span class="bg-error/10 text-error px-2 py-1 rounded text-xs font-semibold">Attacker</span></td>
-<td class="py-3 px-6 font-medium">98.5%</td>
-</tr>
-<tr class="border-b border-surface-variant hover:bg-surface-bright transition-colors">
-<td class="py-3 px-6 data-font">session_b4c11</td>
-<td class="py-3 px-6">32,844</td>
-<td class="py-3 px-6 text-on-surface-variant data-font">[0.10, 0.05, ..., 0.22]</td>
-<td class="py-3 px-6"><span class="bg-[#0c9488]/10 text-[#0c9488] px-2 py-1 rounded text-xs font-semibold">Normal</span></td>
-<td class="py-3 px-6 font-medium">99.1%</td>
-</tr>
-<tr class="border-b border-surface-variant hover:bg-surface-bright transition-colors">
-<td class="py-3 px-6 data-font">session_c9d22</td>
-<td class="py-3 px-6">28,102</td>
-<td class="py-3 px-6 text-on-surface-variant data-font">[0.55, 0.43, ..., 0.61]</td>
-<td class="py-3 px-6"><span class="bg-[#ba1a1a]/10 text-[#ba1a1a] px-2 py-1 rounded text-xs font-semibold">Suspicious</span></td>
-<td class="py-3 px-6 font-medium">72.4%</td>
-</tr>
-<tr class="hover:bg-surface-bright transition-colors">
-<td class="py-3 px-6 data-font">session_e5f33</td>
-<td class="py-3 px-6">19,450</td>
-<td class="py-3 px-6 text-on-surface-variant data-font">[0.02, 0.11, ..., 0.08]</td>
-<td class="py-3 px-6"><span class="bg-[#0c9488]/10 text-[#0c9488] px-2 py-1 rounded text-xs font-semibold">Normal</span></td>
-<td class="py-3 px-6 font-medium">96.8%</td>
-</tr>
+<tbody id="assessments-body" class="text-sm">
+<tr><td colspan="5" class="py-8 text-center text-on-surface-variant">Loading assessments…</td></tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
 </main>
-<script>
-        // Chart Configuration defaults for consistent styling
-        Chart.defaults.font.family = "'Inter', sans-serif";
-        Chart.defaults.color = '#76777d';
-        
-        const gridColor = '#e0e3e5';
-        const brandColors = {
-            normal: '#e0e3e5', // surface-variant
-            attack: '#ba1a1a', // error
-            primary: '#0058be', // secondary
-            accent1: '#0c9488',
-            accent2: '#004395',
-            accent3: '#89f5e7'
-        };
-
-        // 1. Requests Over Time (Stacked Area)
-        new Chart(document.getElementById('requestsChart'), {
-            type: 'line',
-            data: {
-                labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
-                datasets: [
-                    {
-                        label: 'Malicious Requests',
-                        data: [100, 150, 800, 200, 120, 300, 150],
-                        borderColor: brandColors.attack,
-                        backgroundColor: 'rgba(186, 26, 26, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 2,
-                        pointRadius: 0
-                    },
-                    {
-                        label: 'Normal Requests',
-                        data: [1200, 900, 3500, 4200, 3800, 2500, 1500],
-                        borderColor: brandColors.primary,
-                        backgroundColor: 'rgba(0, 88, 190, 0.05)',
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 2,
-                        pointRadius: 0
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { grid: { color: gridColor, drawBorder: false } }
-                }
-            }
-        });
-
-        // 2. Traffic Pie Chart
-        new Chart(document.getElementById('trafficPieChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Normal', 'Attacker'],
-                datasets: [{
-                    data: [85, 15],
-                    backgroundColor: [brandColors.normal, brandColors.attack],
-                    borderWidth: 0,
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: { legend: { display: false } }
-            }
-        });
-
-        // 3. Blocked IPs Trend
-        new Chart(document.getElementById('blockedIpsChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [
-                    {
-                        label: 'Blocked IPs',
-                        data: [45, 62, 89, 42, 56, 75, 48],
-                        backgroundColor: brandColors.attack,
-                        borderRadius: 4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { grid: { color: gridColor, drawBorder: false } }
-                }
-            }
-        });
-
-        // 4. Method Distribution -> Risk Models
-        new Chart(document.getElementById('methodChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Behavioral Risk', 'URL Risk', 'Combined Model'],
-                datasets: [{
-                    data: [55, 30, 15],
-                    backgroundColor: [brandColors.primary, brandColors.accent1, brandColors.accent2],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'right', labels: { boxWidth: 12, usePointStyle: true } }
-                }
-            }
-        });
-
-        // 5. Top Active IPs
-        new Chart(document.getElementById('topIpsChart'), {
-            type: 'bar',
-            data: {
-                labels: ['192.168.1.104', '45.22.19.1', '10.0.0.52', '172.16.0.2', '8.8.8.8'],
-                datasets: [{
-                    label: 'Requests',
-                    data: [15420, 12300, 8400, 6200, 3100],
-                    backgroundColor: brandColors.primary,
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { color: gridColor } },
-                    y: { grid: { display: false }, ticks: { font: { family: "'JetBrains Mono', monospace", size: 11 } } }
-                }
-            }
-        });
-
-        // 6. HTTP Status
-        new Chart(document.getElementById('statusChart'), {
-            type: 'bar',
-            data: {
-                labels: ['200 OK', '404 Not Found', '403 Forbidden', '500 Server Error', '429 Too Many'],
-                datasets: [{
-                    label: 'Count',
-                    data: [45000, 3200, 1800, 450, 2100],
-                    backgroundColor: [brandColors.primary, '#76777d', brandColors.attack, '#ba1a1a', '#004395'],
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { grid: { color: gridColor } }
-                }
-            }
-        });
-
-    </script>
+<script src="../js/config.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/format.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/analytics.js"></script>
+<script src="../js/init.js"></script>
 </body></html>

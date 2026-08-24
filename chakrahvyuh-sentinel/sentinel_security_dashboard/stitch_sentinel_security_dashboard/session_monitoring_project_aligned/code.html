@@ -191,7 +191,7 @@
         }
     </style>
 </head>
-<body class="bg-background text-on-background font-body-md antialiased overflow-hidden">
+<body class="bg-background text-on-background font-body-md antialiased overflow-hidden" data-page="sessions">
 <!-- SideNavBar -->
 <nav class="flex flex-col h-full w-[260px] fixed z-40 bg-primary-container border-r border-outline-variant">
 <div class="px-gutter py-6 flex flex-col gap-4">
@@ -213,42 +213,42 @@
 <ul class="flex flex-col">
 <!-- Dashboard -->
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="dashboard" href="#">
 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
 <span class="font-body-md text-body-md">Dashboard</span>
 </a>
 </li>
 <!-- Security Alerts -->
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="alerts" href="#">
 <span class="material-symbols-outlined" data-icon="warning">warning</span>
 <span class="font-body-md text-body-md">Security Alerts</span>
 </a>
 </li>
 <!-- Blocked IPs -->
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="blocked-ips" href="#">
 <span class="material-symbols-outlined" data-icon="block">block</span>
 <span class="font-body-md text-body-md">Blocked IPs</span>
 </a>
 </li>
 <!-- Requests -->
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="requests" href="#">
 <span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
 <span class="font-body-md text-body-md">Requests</span>
 </a>
 </li>
 <!-- Sessions (Active) -->
 <li>
-<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 cursor-pointer active:opacity-80 transition-all" href="#">
+<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 cursor-pointer active:opacity-80 transition-all" data-nav="sessions" href="#">
 <span class="material-symbols-outlined icon-fill" data-icon="history" data-weight="fill">history</span>
 <span class="font-body-md text-body-md font-medium">Sessions</span>
 </a>
 </li>
 <!-- Security Analytics -->
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="analytics" href="#">
 <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
 <span class="font-body-md text-body-md">Security Analytics</span>
 </a>
@@ -308,7 +308,7 @@
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Active Sessions</span>
 <span class="material-symbols-outlined text-secondary" data-icon="bolt">bolt</span>
 </div>
-<div class="font-display text-display text-on-surface z-10">37</div>
+<div id="session-stat-active" class="font-display text-display text-on-surface z-10">—</div>
 </div>
 <!-- Closed Sessions -->
 <div class="flex-1 bg-surface-container-lowest border border-[#E2E8F0] rounded-lg p-5 flex flex-col justify-between h-28 relative overflow-hidden group">
@@ -317,7 +317,7 @@
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Closed Sessions</span>
 <span class="material-symbols-outlined text-on-surface-variant" data-icon="check_circle">check_circle</span>
 </div>
-<div class="font-display text-display text-on-surface z-10">1.2k</div>
+<div id="session-stat-closed" class="font-display text-display text-on-surface z-10">—</div>
 </div>
 <!-- Blocked Sessions -->
 <div class="flex-1 bg-surface-container-lowest border border-[#E2E8F0] rounded-lg p-5 flex flex-col justify-between h-28 relative overflow-hidden group">
@@ -326,7 +326,7 @@
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Blocked Sessions</span>
 <span class="material-symbols-outlined text-error" data-icon="gpp_bad">gpp_bad</span>
 </div>
-<div class="font-display text-display text-error z-10">8</div>
+<div id="session-stat-blocked" class="font-display text-display text-error z-10">—</div>
 </div>
 </div>
 <!-- Main Table Area -->
@@ -359,87 +359,8 @@
 <th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 border-b border-[#F1F5F9] whitespace-nowrap">Status</th>
 </tr>
 </thead>
-<tbody class="font-body-md text-body-md text-on-surface divide-y divide-[#F1F5F9]">
-<!-- Active Row (Selected) -->
-<tr class="bg-secondary/5 hover:bg-secondary/10 transition-colors cursor-pointer group">
-<td class="py-3 px-4 font-data-mono text-data-mono text-secondary">abc12345</td>
-<td class="py-3 px-4 font-data-mono text-data-mono">192.168.1.105</td>
-<td class="py-3 px-4 text-right font-data-mono text-data-mono">1,204</td>
-<td class="py-3 px-4 text-on-surface-variant">10:24 AM</td>
-<td class="py-3 px-4 text-on-surface-variant">Just now</td>
-<td class="py-3 px-4">
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-secondary/10 text-secondary border border-secondary/20">
-                                            ACTIVE
-                                        </span>
-<span class="inline-flex items-center px-2 py-0.5 ml-2 rounded text-[10px] font-semibold bg-surface-variant text-on-surface-variant border border-outline-variant/30">
-                                            EVALUATED
-                                        </span>
-</td>
-</tr>
-<!-- Closed Row -->
-<tr class="hover:bg-surface-bright transition-colors cursor-pointer group">
-<td class="py-3 px-4 font-data-mono text-data-mono text-on-surface">xyz98765</td>
-<td class="py-3 px-4 font-data-mono text-data-mono">203.0.113.42</td>
-<td class="py-3 px-4 text-right font-data-mono text-data-mono">342</td>
-<td class="py-3 px-4 text-on-surface-variant">09:15 AM</td>
-<td class="py-3 px-4 text-on-surface-variant">10:05 AM</td>
-<td class="py-3 px-4">
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-variant/50 text-on-surface-variant border border-outline-variant/30">
-                                            CLOSED
-                                        </span>
-<span class="inline-flex items-center px-2 py-0.5 ml-2 rounded text-[10px] font-semibold bg-surface-variant text-on-surface-variant border border-outline-variant/30">
-                                            EVALUATED
-                                        </span>
-</td>
-</tr>
-<!-- Blocked Row -->
-<tr class="hover:bg-surface-bright transition-colors cursor-pointer group">
-<td class="py-3 px-4 font-data-mono text-data-mono text-on-surface">blk45678</td>
-<td class="py-3 px-4 font-data-mono text-data-mono text-error">45.22.19.100</td>
-<td class="py-3 px-4 text-right font-data-mono text-data-mono">15,000+</td>
-<td class="py-3 px-4 text-on-surface-variant">08:30 AM</td>
-<td class="py-3 px-4 text-on-surface-variant">08:32 AM</td>
-<td class="py-3 px-4">
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-error/10 text-error border border-error/20">
-                                            BLOCKED
-                                        </span>
-<span class="inline-flex items-center px-2 py-0.5 ml-2 rounded text-[10px] font-semibold bg-surface-variant text-on-surface-variant border border-outline-variant/30">
-                                            EVALUATED
-                                        </span>
-</td>
-</tr>
-<!-- Closed Row -->
-<tr class="hover:bg-surface-bright transition-colors cursor-pointer group">
-<td class="py-3 px-4 font-data-mono text-data-mono text-on-surface">def23456</td>
-<td class="py-3 px-4 font-data-mono text-data-mono">10.0.0.55</td>
-<td class="py-3 px-4 text-right font-data-mono text-data-mono">890</td>
-<td class="py-3 px-4 text-on-surface-variant">07:45 AM</td>
-<td class="py-3 px-4 text-on-surface-variant">09:12 AM</td>
-<td class="py-3 px-4">
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-variant/50 text-on-surface-variant border border-outline-variant/30">
-                                            CLOSED
-                                        </span>
-<span class="inline-flex items-center px-2 py-0.5 ml-2 rounded text-[10px] font-semibold bg-surface-variant text-on-surface-variant border border-outline-variant/30">
-                                            EVALUATED
-                                        </span>
-</td>
-</tr>
-<!-- Active Row -->
-<tr class="hover:bg-surface-bright transition-colors cursor-pointer group">
-<td class="py-3 px-4 font-data-mono text-data-mono text-on-surface">jkl89012</td>
-<td class="py-3 px-4 font-data-mono text-data-mono">172.16.254.1</td>
-<td class="py-3 px-4 text-right font-data-mono text-data-mono">112</td>
-<td class="py-3 px-4 text-on-surface-variant">10:45 AM</td>
-<td class="py-3 px-4 text-on-surface-variant">2m ago</td>
-<td class="py-3 px-4">
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-secondary/10 text-secondary border border-secondary/20">
-                                            ACTIVE
-                                        </span>
-<span class="inline-flex items-center px-2 py-0.5 ml-2 rounded text-[10px] font-semibold bg-surface-container-high text-on-surface-variant border border-outline-variant/30">
-                                            PENDING
-                                        </span>
-</td>
-</tr>
+<tbody id="sessions-table-body" class="font-body-md text-body-md text-on-surface divide-y divide-[#F1F5F9]">
+<tr><td colspan="6" class="py-8 text-center text-on-surface-variant">Loading sessions…</td></tr>
 </tbody>
 </table>
 </div>
@@ -530,4 +451,10 @@
 </div>
 </div>
 </main>
+<script src="../js/config.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/format.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pages.js"></script>
+<script src="../js/init.js"></script>
 </body></html>

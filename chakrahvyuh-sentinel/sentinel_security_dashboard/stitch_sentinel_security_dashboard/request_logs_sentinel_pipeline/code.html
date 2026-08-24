@@ -175,7 +175,7 @@
         }
     </style>
 </head>
-<body class="bg-background text-on-background font-body-md text-body-md antialiased flex h-screen overflow-hidden">
+<body class="bg-background text-on-background font-body-md text-body-md antialiased flex h-screen overflow-hidden" data-page="requests">
 <!-- SideNavBar -->
 <aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-primary-container dark:bg-primary-container border-r border-outline-variant dark:border-outline-variant flex flex-col h-full w-[260px] fixed z-40">
 <div class="px-container-padding py-6">
@@ -191,37 +191,37 @@
 <nav class="flex-1 overflow-y-auto py-4">
 <ul class="flex flex-col space-y-1">
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" data-nav="dashboard" href="#">
 <span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
                         Dashboard
                     </a>
 </li>
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" data-nav="alerts" href="#">
 <span class="material-symbols-outlined text-[20px]" data-icon="warning">warning</span>
                         Security Alerts
                     </a>
 </li>
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" data-nav="blocked-ips" href="#">
 <span class="material-symbols-outlined text-[20px]" data-icon="block">block</span>
                         Blocked IPs
                     </a>
 </li>
 <li>
-<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" href="#">
+<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" data-nav="requests" href="#">
 <span class="material-symbols-outlined text-[20px]" data-icon="swap_horiz">swap_horiz</span>
                         Requests
                     </a>
 </li>
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" data-nav="sessions" href="#">
 <span class="material-symbols-outlined text-[20px]" data-icon="history">history</span>
                         Sessions
                     </a>
 </li>
 <li>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-body-md text-body-md" data-nav="analytics" href="#">
 <span class="material-symbols-outlined text-[20px]" data-icon="analytics">analytics</span>
                         Security Analytics
                     </a>
@@ -333,65 +333,14 @@
 <th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant whitespace-nowrap text-right">Response Time</th>
 </tr>
 </thead>
-<tbody class="font-data-mono text-data-mono divide-y divide-surface-container">
-<!-- Row 1 -->
-<tr class="hover:bg-surface-bright transition-colors group cursor-pointer">
-<td class="py-3 px-4 text-on-surface-variant whitespace-nowrap">10:42:01.124</td>
-<td class="py-3 px-4 text-on-surface whitespace-nowrap">192.168.1.105</td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-secondary-container/20 text-on-secondary-fixed-variant">GET</span>
-</td>
-<td class="py-3 px-4 text-on-surface truncate max-w-[300px]" title="/api/v1/users/profile">/api/v1/users/profile</td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-tertiary-fixed-dim/20 text-on-tertiary-container font-bold"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span> 200</span>
-</td>
-<td class="py-3 px-4 text-on-surface whitespace-nowrap text-right">45ms</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-surface-bright transition-colors group cursor-pointer">
-<td class="py-3 px-4 text-on-surface-variant whitespace-nowrap">10:42:01.450</td>
-<td class="py-3 px-4 text-on-surface whitespace-nowrap">10.0.4.22</td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-primary-fixed-dim/40 text-on-primary-fixed-variant">POST</span>
-</td>
-<td class="py-3 px-4 text-on-surface truncate max-w-[300px]" title="/api/v1/auth/login">/api/v1/auth/login</td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-error/10 text-error font-bold"><span class="w-1.5 h-1.5 rounded-full bg-error"></span> 401</span>
-</td>
-<td class="py-3 px-4 text-on-surface whitespace-nowrap text-right">120ms</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-surface-bright transition-colors group cursor-pointer">
-<td class="py-3 px-4 text-on-surface-variant whitespace-nowrap">10:42:02.012</td>
-<td class="py-3 px-4 text-on-surface whitespace-nowrap">172.16.0.4</td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-secondary-container/20 text-on-secondary-fixed-variant">GET</span>
-</td>
-<td class="py-3 px-4 text-on-surface truncate max-w-[300px]" title="/assets/main.css">/assets/main.css</td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-tertiary-fixed-dim/20 text-on-tertiary-container font-bold"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span> 304</span>
-</td>
-<td class="py-3 px-4 text-on-surface whitespace-nowrap text-right">12ms</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-surface-bright transition-colors group cursor-pointer">
-<td class="py-3 px-4 text-on-surface-variant whitespace-nowrap">10:42:02.880</td>
-<td class="py-3 px-4 text-on-surface whitespace-nowrap">192.168.1.105</td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-surface-variant text-on-surface-variant">PUT</span>
-</td>
-<td class="py-3 px-4 text-on-surface truncate max-w-[300px]" title="/api/v1/settings/theme">/api/v1/settings/theme</td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-tertiary-fixed-dim/20 text-on-tertiary-container font-bold"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span> 200</span>
-</td>
-<td class="py-3 px-4 text-on-surface whitespace-nowrap text-right">85ms</td>
-</tr>
+<tbody id="requests-table-body" class="font-data-mono text-data-mono divide-y divide-surface-container">
+<tr><td colspan="6" class="py-8 text-center text-on-surface-variant">Loading request logs…</td></tr>
 </tbody>
 </table>
 </div>
 <!-- Pagination footer -->
 <div class="border-t border-outline-variant py-3 px-4 flex items-center justify-between bg-surface-container-lowest">
-<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 1-24 of 1,204 requests</span>
+<span id="requests-footer" class="font-body-sm text-body-sm text-on-surface-variant">Loading…</span>
 <div class="flex items-center gap-2">
 <button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" disabled="">
 <span class="material-symbols-outlined text-[18px]">chevron_left</span>
@@ -405,4 +354,10 @@
 </div>
 </main>
 </div>
+<script src="../js/config.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/format.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pages.js"></script>
+<script src="../js/init.js"></script>
 </body></html>
