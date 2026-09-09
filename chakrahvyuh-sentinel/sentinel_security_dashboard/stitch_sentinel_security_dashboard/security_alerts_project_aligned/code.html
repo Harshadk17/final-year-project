@@ -170,7 +170,7 @@
         }
     </script>
 </head>
-<body class="bg-background text-on-background min-h-screen font-body-md text-body-md overflow-x-hidden">
+<body class="bg-background text-on-background min-h-screen font-body-md text-body-md overflow-x-hidden" data-page="alerts">
 <!-- Top AppBar -->
 <header class="bg-surface dark:bg-surface text-primary dark:text-primary-fixed-dim font-headline-md text-headline-md font-body-md text-body-md h-16 fixed top-0 right-0 z-30 border-b border-outline-variant dark:border-outline-variant flex items-center justify-between px-gutter ml-[260px] w-[calc(100%-260px)] hidden md:flex">
 <!-- Left Side: Search Bar & Product Name -->
@@ -209,28 +209,28 @@
 </div>
 <!-- Main Navigation -->
 <div class="flex-1 overflow-y-auto py-4 flex flex-col gap-1">
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" data-nav="dashboard" href="#">
 <span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 0;">dashboard</span>
 <span class="font-body-md text-body-md">Dashboard</span>
 </a>
 <!-- ACTIVE ITEM -->
-<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" href="#">
+<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" data-nav="alerts" href="#">
 <span class="material-symbols-outlined" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
 <span class="font-body-md text-body-md font-medium">Security Alerts</span>
 </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" data-nav="blocked-ips" href="#">
 <span class="material-symbols-outlined" data-icon="block" style="font-variation-settings: 'FILL' 0;">block</span>
 <span class="font-body-md text-body-md">Blocked IPs</span>
 </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" data-nav="requests" href="#">
 <span class="material-symbols-outlined" data-icon="swap_horiz" style="font-variation-settings: 'FILL' 0;">swap_horiz</span>
 <span class="font-body-md text-body-md">Requests</span>
 </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" data-nav="sessions" href="#">
 <span class="material-symbols-outlined" data-icon="history" style="font-variation-settings: 'FILL' 0;">history</span>
 <span class="font-body-md text-body-md">Sessions</span>
 </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 hover:bg-surface-variant/20 dark:hover:bg-surface-variant/10 transition-colors duration-200 cursor-pointer active:opacity-80 transition-all font-label-caps text-label-caps" data-nav="analytics" href="#">
 <span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 0;">analytics</span>
 <span class="font-body-md text-body-md">Security Analytics</span>
 </a>
@@ -270,7 +270,7 @@
 <span class="material-symbols-outlined text-[18px]" data-icon="notifications" style="font-variation-settings: 'FILL' 1;">notifications</span>
 </div>
 </div>
-<div class="font-headline-lg text-headline-lg text-on-surface mt-2">1,248</div>
+<div id="alert-stat-total" class="font-headline-lg text-headline-lg text-on-surface mt-2">—</div>
 <div class="flex items-center gap-1 text-on-tertiary-container mt-1">
 <span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span>
 <span class="font-body-sm text-body-sm">+12% vs last week</span>
@@ -287,7 +287,7 @@
 <span class="material-symbols-outlined text-[18px]" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
 </div>
 </div>
-<div class="font-headline-lg text-headline-lg text-error mt-2">42</div>
+<div id="alert-stat-attacker" class="font-headline-lg text-headline-lg text-error mt-2">—</div>
 <div class="flex items-center gap-1 text-error mt-1">
 <span class="material-symbols-outlined text-[14px]" data-icon="priority_high">priority_high</span>
 <span class="font-body-sm text-body-sm">Requires immediate action</span>
@@ -301,7 +301,7 @@
 <span class="material-symbols-outlined text-[18px]" data-icon="block" style="font-variation-settings: 'FILL' 1;">block</span>
 </div>
 </div>
-<div class="font-headline-lg text-headline-lg text-on-surface mt-2">892</div>
+<div id="alert-stat-blocks" class="font-headline-lg text-headline-lg text-on-surface mt-2">—</div>
 <div class="flex items-center gap-1 text-on-surface-variant mt-1">
 <span class="material-symbols-outlined text-[14px]" data-icon="shield">shield</span>
 <span class="font-body-sm text-body-sm">Auto-mitigation active</span>
@@ -315,7 +315,7 @@
 <span class="material-symbols-outlined text-[18px]" data-icon="mark_email_unread" style="font-variation-settings: 'FILL' 1;">mark_email_unread</span>
 </div>
 </div>
-<div class="font-headline-lg text-headline-lg text-on-surface mt-2">156</div>
+<div id="alert-stat-unread" class="font-headline-lg text-headline-lg text-on-surface mt-2">—</div>
 <div class="flex items-center gap-1 text-secondary mt-1">
 <span class="material-symbols-outlined text-[14px]" data-icon="fiber_manual_record" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
 <span class="font-body-sm text-body-sm">Pending review</span>
@@ -368,100 +368,8 @@
 <th class="px-4 py-3 font-medium">Status</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant/50 text-on-surface">
-<tr class="hover:bg-surface-container-low/50 transition-colors bg-error-container/10">
-<td class="px-4 py-3 font-data-mono text-data-mono">ALT-9921</td>
-<td class="px-4 py-3 font-data-mono text-data-mono">192.168.1.105</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center gap-1 text-error bg-error-container/50 px-2 py-0.5 rounded font-medium text-xs">
-<span class="material-symbols-outlined text-[12px]" data-icon="bug_report">bug_report</span>
-                            Attacker
-                        </span>
-</td>
-<td class="px-4 py-3">98.5%</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center justify-center bg-error text-on-error px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider w-24">
-                            Block
-                        </span>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">SQL Injection Attempt</td>
-<td class="px-4 py-3 font-data-mono text-data-mono text-on-surface-variant">2023-10-27 14:32:01</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center gap-1 text-secondary font-medium text-xs">
-<span class="material-symbols-outlined text-[12px]" data-icon="fiber_manual_record" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
-                            Unread
-                        </span>
-</td>
-</tr>
-<tr class="hover:bg-surface-container-low/50 transition-colors">
-<td class="px-4 py-3 font-data-mono text-data-mono">ALT-9920</td>
-<td class="px-4 py-3 font-data-mono text-data-mono">203.0.113.42</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center gap-1 text-error bg-error-container/50 px-2 py-0.5 rounded font-medium text-xs">
-<span class="material-symbols-outlined text-[12px]" data-icon="bug_report">bug_report</span>
-                            Attacker
-                        </span>
-</td>
-<td class="px-4 py-3">91.2%</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center justify-center bg-error text-on-error px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider w-24">
-                            Block
-                        </span>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">Rate Limit Exceeded</td>
-<td class="px-4 py-3 font-data-mono text-data-mono text-on-surface-variant">2023-10-27 14:28:45</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center gap-1 text-on-surface-variant text-xs">
-                            Read
-                        </span>
-</td>
-</tr>
-<tr class="hover:bg-surface-container-low/50 transition-colors">
-<td class="px-4 py-3 font-data-mono text-data-mono">ALT-9919</td>
-<td class="px-4 py-3 font-data-mono text-data-mono">198.51.100.7</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center gap-1 text-on-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded font-medium text-xs">
-<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span>
-                            Benign
-                        </span>
-</td>
-<td class="px-4 py-3">12.4%</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center justify-center bg-on-tertiary-container text-on-primary px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider w-24">
-                            Allow
-                        </span>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">Verified Normal Traffic</td>
-<td class="px-4 py-3 font-data-mono text-data-mono text-on-surface-variant">2023-10-27 14:15:22</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center gap-1 text-on-surface-variant text-xs">
-                            Read
-                        </span>
-</td>
-</tr>
-<tr class="hover:bg-surface-container-low/50 transition-colors">
-<td class="px-4 py-3 font-data-mono text-data-mono">ALT-9918</td>
-<td class="px-4 py-3 font-data-mono text-data-mono">10.0.0.55</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center gap-1 text-error bg-error-container/50 px-2 py-0.5 rounded font-medium text-xs">
-<span class="material-symbols-outlined text-[12px]" data-icon="bug_report">bug_report</span>
-                            Attacker
-                        </span>
-</td>
-<td class="px-4 py-3">87.9%</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center justify-center bg-secondary text-on-secondary px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider w-24">
-                            Challenge
-                        </span>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">Impossible Travel</td>
-<td class="px-4 py-3 font-data-mono text-data-mono text-on-surface-variant">2023-10-27 13:59:10</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center gap-1 text-on-surface-variant text-xs">
-                            Read
-                        </span>
-</td>
-</tr>
+<tbody id="alerts-table-body" class="divide-y divide-outline-variant/50 text-on-surface">
+<tr><td colspan="8" class="px-4 py-8 text-center text-on-surface-variant">Loading alerts…</td></tr>
 </tbody>
 </table>
 </div>
@@ -474,4 +382,10 @@
 </div>
 </div>
 </main>
+<script src="../js/config.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/format.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pages.js"></script>
+<script src="../js/init.js"></script>
 </body></html>

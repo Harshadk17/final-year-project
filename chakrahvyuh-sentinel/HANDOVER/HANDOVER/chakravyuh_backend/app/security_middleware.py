@@ -6,29 +6,42 @@ from request_logging_middleware.py after a response has been produced).
 """
 
 from starlette.middleware.base import BaseHTTPMiddleware
-from fastapi import Request, Response
+from fastapi import Request
+from fastapi.responses import JSONResponse
+
 from app.database import SessionLocal
 from app.blocking_service import is_ip_blocked
 
+# Dashboard and health endpoints must remain reachable even when the caller IP is blocked.
+_EXEMPT_PATHS = {
+    "/",
+    "/stats",
+    "/statistics",
+    "/alerts",
+    "/blocked-ips",
+    "/requests",
+    "/sessions",
+    "/docs",
+    "/redoc",
+    "/openapi.json",
+}
+
 class IPBlockMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
-        # Exempt health check and stats endpoints from being blocked
-        if request.url.path in ["/", "/stats", "/api/stats"]:
+        path = request.url.path
+        if path in _EXEMPT_PATHS or path.startswith("/docs"):
             return await call_next(request)
 
         client_ip = request.client.host if request.client else "unknown"
-        
-        # Check if IP is blocked
+
         db = SessionLocal()
         try:
             if is_ip_blocked(db, client_ip):
-                return Response(
-                    content='{"detail": "Access blocked due to suspicious behavior."}',
+                return JSONResponse(
+                    {"detail": "Forbidden: IP blocked by Sentinel"},
                     status_code=403,
-                    media_type="application/json"
                 )
         finally:
             db.close()
 
-        response = await call_next(request)
-        return response
+        return await call_next(request)

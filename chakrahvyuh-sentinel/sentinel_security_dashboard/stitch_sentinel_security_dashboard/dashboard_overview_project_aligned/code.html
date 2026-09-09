@@ -104,7 +104,7 @@
         .nav-icon { font-size: 20px; }
     </style>
 </head>
-<body class="bg-background text-on-background antialiased flex">
+<body class="bg-background text-on-background antialiased flex" data-page="dashboard">
 <!-- Sidebar Navigation -->
 <aside class="w-[300px] h-screen fixed left-0 top-0 flex flex-col bg-primary-container text-on-primary-container z-40 border-r border-outline-variant">
 <!-- Brand Header -->
@@ -119,25 +119,29 @@
 </div>
 <!-- Main Navigation -->
 <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-1">
-<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-4 py-3 rounded-r-lg font-body-md text-body-md cursor-pointer transition-all" href="#">
+<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-4 py-3 rounded-r-lg font-body-md text-body-md cursor-pointer transition-all" data-nav="dashboard" href="#">
 <span class="material-symbols-outlined nav-icon" data-icon="dashboard">dashboard</span>
                 Dashboard
             </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" data-nav="alerts" href="#">
 <span class="material-symbols-outlined nav-icon" data-icon="warning">warning</span>
                 Security Alerts
             </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" data-nav="blocked-ips" href="#">
 <span class="material-symbols-outlined nav-icon" data-icon="block">block</span>
                 Blocked IPs
             </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" data-nav="requests" href="#">
 <span class="material-symbols-outlined nav-icon" data-icon="swap_horiz">swap_horiz</span>
                 Requests
             </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" data-nav="sessions" href="#">
 <span class="material-symbols-outlined nav-icon" data-icon="history">history</span>
                 Sessions
+            </a>
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200" data-nav="analytics" href="#">
+<span class="material-symbols-outlined nav-icon" data-icon="analytics">analytics</span>
+                Behavior Analysis
             </a>
 <a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/20 px-4 py-3 rounded-lg font-body-md text-body-md cursor-pointer transition-colors duration-200 mt-4" href="#">
 <span class="material-symbols-outlined nav-icon" data-icon="settings">settings</span>
@@ -206,7 +210,7 @@
 <!-- Page Header -->
 <div class="flex items-center justify-between mb-6">
 <h1 class="font-headline-lg text-headline-lg text-on-surface">Dashboard Overview</h1>
-<button class="flex items-center gap-2 bg-secondary text-on-secondary px-4 py-2 rounded-lg font-body-md text-body-md hover:opacity-90 transition-opacity">
+<button id="refresh-btn" class="flex items-center gap-2 bg-secondary text-on-secondary px-4 py-2 rounded-lg font-body-md text-body-md hover:opacity-90 transition-opacity">
 <span class="material-symbols-outlined text-[18px]" data-icon="refresh">refresh</span>
                     Live Refresh
                 </button>
@@ -217,7 +221,7 @@
 <div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30 flex flex-col justify-between h-[104px]">
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Total Requests</span>
 <div class="flex items-end justify-between">
-<span class="font-headline-md text-headline-md text-on-surface">12,480</span>
+<span id="stat-total-requests" class="font-headline-md text-headline-md text-on-surface">—</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">
                             Current total
                         </span>
@@ -227,7 +231,7 @@
 <div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30 flex flex-col justify-between h-[104px]">
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Active Sessions</span>
 <div class="flex items-end justify-between">
-<span class="font-headline-md text-headline-md text-on-surface">37</span>
+<span id="stat-active-sessions" class="font-headline-md text-headline-md text-on-surface">—</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">
                             Current total
                         </span>
@@ -237,15 +241,15 @@
 <div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30 flex flex-col justify-between h-[104px]">
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Security Alerts</span>
 <div class="flex items-end justify-between">
-<span class="font-headline-md text-headline-md text-on-surface">18</span>
-<span class="font-body-sm text-body-sm text-amber-600 font-medium bg-amber-50 px-1.5 py-0.5 rounded">Unread</span>
+<span id="stat-total-alerts" class="font-headline-md text-headline-md text-on-surface">—</span>
+<span id="stat-unread-alerts" class="font-body-sm text-body-sm text-amber-600 font-medium bg-amber-50 px-1.5 py-0.5 rounded">Unread</span>
 </div>
 </div>
 <!-- Card 4 -->
 <div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30 border-l-4 border-l-error flex flex-col justify-between h-[104px]">
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Active Blocked IPs</span>
 <div class="flex items-end justify-between">
-<span class="font-headline-md text-headline-md text-error">8</span>
+<span id="stat-blocked-ips" class="font-headline-md text-headline-md text-error">—</span>
 <span class="font-body-sm text-body-sm text-error font-medium truncate max-w-[120px]" title="IPs currently blocked by Sentinel">IPs currently blocked by Sentinel</span>
 </div>
 </div>
@@ -284,13 +288,13 @@
 <!-- CSS Donut Chart Mock -->
 <div class="w-48 h-48 rounded-full border-[16px] border-surface-container relative" style="border-top-color: #ba1a1a; border-right-color: #ba1a1a; border-bottom-color: #10b981; border-left-color: #10b981; transform: rotate(-45deg);"></div>
 <div class="absolute inset-0 flex flex-col items-center justify-center">
-<span class="font-display text-display text-on-surface">12k</span>
+<span id="decision-total" class="font-display text-display text-on-surface">—</span>
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Decisions</span>
 </div>
 </div>
 <div class="flex justify-center gap-6 mt-4 font-body-sm text-body-sm">
-<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div>Normal (98%)</div>
-<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-error"></div>Attacker (2%)</div>
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><span id="decision-normal-pct">Normal</span></div>
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-error"></div><span id="decision-attacker-pct">Attacker</span></div>
 </div>
 </div>
 </div>
@@ -298,7 +302,7 @@
 <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden mb-6">
 <div class="px-6 py-4 border-b border-outline-variant/30 flex items-center justify-between">
 <h2 class="font-headline-md text-headline-md text-on-surface">Recent Security Alerts</h2>
-<button class="text-secondary font-body-sm text-body-sm font-medium hover:underline">View All</button>
+<button class="text-secondary font-body-sm text-body-sm font-medium hover:underline" data-nav="alerts" id="view-all-alerts">View All</button>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
@@ -313,61 +317,8 @@
 <th class="px-6 py-3 font-semibold text-right">Status</th>
 </tr>
 </thead>
-<tbody class="font-body-md text-body-md text-on-surface divide-y divide-outline-variant/20">
-<!-- Row 1 -->
-<tr class="hover:bg-surface-bright/50 transition-colors h-12">
-<td class="px-6 py-3 font-data-mono text-data-mono">127.0.0.1</td>
-<td class="px-6 py-3">
-<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-error bg-error/10 font-medium text-xs">
-<div class="w-1.5 h-1.5 rounded-full bg-error"></div> ATTACKER
-                                    </span>
-</td>
-<td class="px-6 py-3">76.5%</td>
-<td class="px-6 py-3">
-<span class="px-2 py-1 bg-error text-on-error rounded font-medium text-xs tracking-wide">BLOCK</span>
-</td>
-<td class="px-6 py-3 text-on-surface-variant text-sm truncate max-w-[200px]" title="Session behavior classified as attacker">Session behavior classified as...</td>
-<td class="px-6 py-3 text-on-surface-variant">10:42 AM</td>
-<td class="px-6 py-3 text-right">
-<span class="w-2 h-2 rounded-full bg-amber-500 inline-block"></span>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-surface-bright/50 transition-colors h-12">
-<td class="px-6 py-3 font-data-mono text-data-mono">192.168.1.105</td>
-<td class="px-6 py-3">
-<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-error bg-error/10 font-medium text-xs">
-<div class="w-1.5 h-1.5 rounded-full bg-error"></div> ATTACKER
-                                    </span>
-</td>
-<td class="px-6 py-3">92.1%</td>
-<td class="px-6 py-3">
-<span class="px-2 py-1 bg-error text-on-error rounded font-medium text-xs tracking-wide">BLOCK</span>
-</td>
-<td class="px-6 py-3 text-on-surface-variant text-sm truncate max-w-[200px]">Suspicious request pattern</td>
-<td class="px-6 py-3 text-on-surface-variant">10:15 AM</td>
-<td class="px-6 py-3 text-right">
-<span class="w-2 h-2 rounded-full bg-outline-variant inline-block"></span>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-surface-bright/50 transition-colors h-12">
-<td class="px-6 py-3 font-data-mono text-data-mono">10.0.0.52</td>
-<td class="px-6 py-3">
-<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-emerald-600 bg-emerald-600/10 font-medium text-xs">
-<div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div> NORMAL
-                                    </span>
-</td>
-<td class="px-6 py-3">98.2%</td>
-<td class="px-6 py-3">
-<span class="px-2 py-1 bg-emerald-500 text-white rounded font-medium text-xs tracking-wide">ALLOW</span>
-</td>
-<td class="px-6 py-3 text-on-surface-variant text-sm truncate max-w-[200px]">Standard browsing behavior</td>
-<td class="px-6 py-3 text-on-surface-variant">09:58 AM</td>
-<td class="px-6 py-3 text-right">
-<span class="w-2 h-2 rounded-full bg-outline-variant inline-block"></span>
-</td>
-</tr>
+<tbody id="recent-alerts-body" class="font-body-md text-body-md text-on-surface divide-y divide-outline-variant/20">
+<tr><td colspan="7" class="px-6 py-8 text-center text-on-surface-variant">Loading alerts…</td></tr>
 </tbody>
 </table>
 </div>
@@ -383,4 +334,10 @@
 </div>
 </main>
 </div>
+<script src="../js/config.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/format.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pages.js"></script>
+<script src="../js/init.js"></script>
 </body></html>

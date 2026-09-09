@@ -105,7 +105,7 @@
         }
     </style>
 </head>
-<body class="bg-background text-on-background font-body-md min-h-screen">
+<body class="bg-background text-on-background font-body-md min-h-screen" data-page="blocked-ips">
 <!-- SideNavBar Component -->
 <nav class="bg-primary-container dark:bg-primary-container w-sidebar-width h-screen fixed left-0 top-0 border-r border-outline-variant dark:border-outline-variant flex flex-col h-full w-[260px] fixed z-40">
 <!-- Header -->
@@ -120,28 +120,28 @@
 </div>
 <!-- Main Navigation -->
 <div class="flex-1 flex flex-col gap-1 overflow-y-auto">
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="dashboard" href="#">
 <span class="material-symbols-outlined">dashboard</span>
 <span class="font-body-md text-body-md">Dashboard</span>
 </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="alerts" href="#">
 <span class="material-symbols-outlined">warning</span>
 <span class="font-body-md text-body-md">Security Alerts</span>
 </a>
 <!-- Active Tab -->
-<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 cursor-pointer active:opacity-80 transition-all" href="#">
+<a class="flex items-center gap-component-gap bg-secondary-container text-on-secondary-container border-l-4 border-secondary px-gutter py-3 cursor-pointer active:opacity-80 transition-all" data-nav="blocked-ips" href="#">
 <span class="material-symbols-outlined">block</span>
 <span class="font-body-md text-body-md font-semibold">Blocked IPs</span>
 </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="requests" href="#">
 <span class="material-symbols-outlined">swap_horiz</span>
 <span class="font-body-md text-body-md">Requests</span>
 </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="sessions" href="#">
 <span class="material-symbols-outlined">history</span>
 <span class="font-body-md text-body-md">Sessions</span>
 </a>
-<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">
+<a class="flex items-center gap-component-gap text-on-primary-container hover:bg-surface-variant/10 px-gutter py-3 transition-colors duration-200 cursor-pointer active:opacity-80" data-nav="analytics" href="#">
 <span class="material-symbols-outlined">analytics</span>
 <span class="font-body-md text-body-md">Security Analytics</span>
 </a>
@@ -207,7 +207,7 @@
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Active Blocks</span>
 <span class="material-symbols-outlined text-error text-[20px]">block</span>
 </div>
-<div class="font-display text-display text-on-surface">8</div>
+<div id="blocked-stat-active" class="font-display text-display text-on-surface">—</div>
 <div class="flex items-center gap-1 text-on-surface-variant mt-2">
 <span class="material-symbols-outlined text-[16px] text-tertiary-container">arrow_upward</span>
 <span class="font-body-sm text-body-sm">+2 in last hour</span>
@@ -219,7 +219,7 @@
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Recently Blocked</span>
 <span class="material-symbols-outlined text-on-primary-fixed-variant text-[20px]">history</span>
 </div>
-<div class="font-display text-display text-on-surface">3</div>
+<div id="blocked-stat-recent" class="font-display text-display text-on-surface">—</div>
 <div class="font-body-sm text-body-sm text-on-surface-variant mt-2">Past 24 hours</div>
 </div>
 <!-- Card 3 -->
@@ -228,7 +228,7 @@
 <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Expiring Soon</span>
 <span class="material-symbols-outlined text-secondary text-[20px]">schedule</span>
 </div>
-<div class="font-display text-display text-on-surface">1</div>
+<div id="blocked-stat-expiring" class="font-display text-display text-on-surface">—</div>
 <div class="font-body-sm text-body-sm text-on-surface-variant mt-2">Within next 6 hours</div>
 </div>
 </div>
@@ -242,8 +242,8 @@
                         Filter
                     </button>
 </div>
-<div class="font-body-sm text-body-sm text-on-surface-variant">
-                    Showing 1-8 of 8 records
+<div id="blocked-count-label" class="font-body-sm text-body-sm text-on-surface-variant">
+                    Loading records…
                 </div>
 </div>
 <!-- Table -->
@@ -260,96 +260,17 @@
 <th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Actions</th>
 </tr>
 </thead>
-<tbody class="font-body-md text-body-md">
-<!-- Row 1 -->
-<tr class="border-b border-surface-container-highest hover:bg-surface-bright transition-colors h-[48px] group">
-<td class="px-4 py-3 font-data-mono text-data-mono text-on-surface font-medium">192.168.1.105</td>
-<td class="px-4 py-3 text-on-surface">Attacker</td>
-<td class="px-4 py-3">
-<div class="flex items-center gap-2">
-<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="h-full bg-error w-[98%]"></div>
-</div>
-<span class="text-on-surface-variant font-data-mono text-data-mono">98%</span>
-</div>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">BLOCK</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center px-2 py-0.5 rounded bg-error-container text-error text-[10px] font-bold tracking-wider uppercase">Active</span>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">Oct 24, 10:42 AM</td>
-<td class="px-4 py-3 text-right">
-<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" title="View Logs">
-<span class="material-symbols-outlined text-[18px]">receipt_long</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="border-b border-surface-container-highest hover:bg-surface-bright transition-colors h-[48px] group">
-<td class="px-4 py-3 font-data-mono text-data-mono text-on-surface font-medium">45.22.19.88</td>
-<td class="px-4 py-3 text-on-surface">Botnet Node</td>
-<td class="px-4 py-3">
-<div class="flex items-center gap-2">
-<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="h-full bg-error w-[92%]"></div>
-</div>
-<span class="text-on-surface-variant font-data-mono text-data-mono">92%</span>
-</div>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">BLOCK</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center px-2 py-0.5 rounded bg-error-container text-error text-[10px] font-bold tracking-wider uppercase">Active</span>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">Oct 24, 09:15 AM</td>
-<td class="px-4 py-3 text-right">
-<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" title="View Logs">
-<span class="material-symbols-outlined text-[18px]">receipt_long</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="border-b border-surface-container-highest hover:bg-surface-bright transition-colors h-[48px] group bg-surface-bright/50">
-<td class="px-4 py-3 font-data-mono text-data-mono text-on-surface-variant">10.0.4.55</td>
-<td class="px-4 py-3 text-on-surface-variant">Suspicious Scrape</td>
-<td class="px-4 py-3">
-<div class="flex items-center gap-2 opacity-50">
-<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="h-full bg-outline w-[75%]"></div>
-</div>
-<span class="text-on-surface-variant font-data-mono text-data-mono">75%</span>
-</div>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">BLOCK</td>
-<td class="px-4 py-3">
-<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-variant text-on-surface-variant text-[10px] font-bold tracking-wider uppercase">Expired</span>
-</td>
-<td class="px-4 py-3 text-on-surface-variant">Oct 23, 11:20 PM</td>
-<td class="px-4 py-3 text-right">
-<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" title="View Logs">
-<span class="material-symbols-outlined text-[18px]">receipt_long</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Empty State (Hidden by default, shown if no rows) -->
-<!--
-                    <tr class="hidden">
-                        <td colspan="7" class="px-4 py-12 text-center text-on-surface-variant">
-                            <div class="flex flex-col items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-[48px] opacity-50">check_circle</span>
-                                <p class="font-body-md text-body-md">No active IP blocks</p>
-                            </div>
-                        </td>
-                    </tr>
-                    -->
+<tbody id="blocked-ips-body" class="font-body-md text-body-md">
+<tr><td colspan="7" class="px-4 py-8 text-center text-on-surface-variant">Loading blocked IPs…</td></tr>
 </tbody>
 </table>
 </div>
 </div>
 </main>
+<script src="../js/config.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/format.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pages.js"></script>
+<script src="../js/init.js"></script>
 </body></html>
