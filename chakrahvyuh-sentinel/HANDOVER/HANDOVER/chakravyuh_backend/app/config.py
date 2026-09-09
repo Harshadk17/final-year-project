@@ -83,3 +83,17 @@ if BLOCK_DURATION_MINUTES <= 0:
     raise RuntimeError(
         "BLOCK_DURATION_MINUTES must be greater than 0."
     )
+
+
+# ---------------------------------------------------------
+# Reverse Proxy
+# ---------------------------------------------------------
+
+# Origin URL to forward allowed requests to (X Beauty Vercel app)
+ORIGIN_URL = os.getenv("ORIGIN_URL", "https://x-beauty-nu.vercel.app")
+
+if not ORIGIN_URL:
+    raise RuntimeError(
+        "ORIGIN_URL environment variable is not configured. "
+        "Set ORIGIN_URL in your .env file before starting the application."
+    )

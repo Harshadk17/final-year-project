@@ -7,6 +7,8 @@ from request_logging_middleware.py after a response has been produced).
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi import Request, Response
+from app.database import SessionLocal
+from app.blocking_service import is_ip_blocked
 
 class IPBlockMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
@@ -14,10 +16,19 @@ class IPBlockMiddleware(BaseHTTPMiddleware):
         if request.url.path in ["/", "/stats", "/api/stats"]:
             return await call_next(request)
 
-        # --- Your existing IP blocking logic remains here ---
-        # client_ip = request.client.host
-        # if is_blocked(client_ip):
-        #     return Response("Forbidden", status_code=403)
+        client_ip = request.client.host if request.client else "unknown"
+        
+        # Check if IP is blocked
+        db = SessionLocal()
+        try:
+            if is_ip_blocked(db, client_ip):
+                return Response(
+                    content='{"detail": "Access blocked due to suspicious behavior."}',
+                    status_code=403,
+                    media_type="application/json"
+                )
+        finally:
+            db.close()
 
         response = await call_next(request)
         return response

@@ -14,6 +14,7 @@ from app.database import init_db, get_db
 from app.security_middleware import IPBlockMiddleware
 from app.request_logging_middleware import RequestLoggingMiddleware
 from app.db_models import SecurityAlert, RequestLog
+from app.reverse_proxy import forward_to_origin
 
 app = FastAPI()
 
@@ -173,3 +174,23 @@ def analyze_url(payload: URLPayload, request: Request):
 
     except Exception as e:
         return {"error": str(e), "score": 0.5}
+
+
+# ============================================================
+# REVERSE PROXY - CATCH-ALL ROUTE
+# ============================================================
+
+@app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"])
+async def proxy_to_origin(path: str, request: Request):
+    """
+    Catch-all route that forwards requests to the X Beauty origin.
+    
+    This route is hit after the security middleware has processed the request:
+    1. IPBlockMiddleware checks if IP is blocked (returns 403 if blocked)
+    2. RequestLoggingMiddleware logs the request and runs behavior analysis
+    3. If not blocked, this route forwards to the origin server
+    
+    API endpoints (/, /stats, /alerts, /analyze, /predict) are handled by their
+    specific routes above and won't reach this catch-all.
+    """
+    return await forward_to_origin(request)
